@@ -12,6 +12,7 @@ dioxus-web = "0.6.3"
 petgraph = "0.8.1"
 getrandom = {version = "0.3", features = ["wasm_js"]}
 rand = "0.9"
+glam = "0.30.3"
 
 [features]
 default = ["web"]
