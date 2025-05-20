@@ -15,15 +15,12 @@ struct EdgeProps {
     x2: f64,
     y2: f64,
     direction: EdgeDirection,
-    // We might need to adjust the line slightly so arrowheads don't overlap the node center too much
-    // For now, the line connects centers, and markers are placed at the ends of this line.
 }
 
 #[component]
 pub fn MyGraph() -> Element {
-    let graph_data = create_graph(); // Renamed to avoid conflict with signal name
+    let graph_data = create_graph();
 
-    // Initial layout logic (as before)
     let node_count = graph_data.node_count();
     let radius = 200.0;
     let center_x = 250.0;
@@ -53,20 +50,19 @@ pub fn MyGraph() -> Element {
                     // Arrowhead marker definition
                     marker {
                         id: "arrowhead",
-                        view_box: "0 0 10 10", // Coordinate system for the marker
-                        ref_x: "8", // Offset arrowhead slightly from the end of the line, along the line's direction
-                        ref_y: "5",   // Center of the arrowhead vertically
+                        view_box: "0 0 10 10",
+                        ref_x: "8",
+                        ref_y: "5",
                         marker_width: "6",
                         marker_height: "6",
-                        orient: "auto-start-reverse", // Orients arrowhead along the line
+                        orient: "auto-start-reverse",
                         path {
-                            d: "M 0 0 L 10 5 L 0 10 z", // Simple triangle shape for arrowhead
-                            fill: "#2196F3" // Arrowhead color, same as edge stroke for consistency
+                            d: "M 0 0 L 10 5 L 0 10 z", // triangle
+                            fill: "#2196F3"
                         }
                     }
                 }
 
-                // Render edges
                 for edge_ref in graph.read().edge_references() {
                     if let (Some(pos_source), Some(pos_target)) = (nodes.read().get(&edge_ref.source()), nodes.read().get(&edge_ref.target())) {
                         Edge {
@@ -79,7 +75,6 @@ pub fn MyGraph() -> Element {
                     }
                 }
 
-                // Render nodes (as before)
                 for (node_idx, pos) in nodes.read().iter() {
                     if let Some(nt) = graph.read().node_weight(*node_idx) {
                         if *nt == NodeType::Value {
