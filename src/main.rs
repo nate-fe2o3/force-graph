@@ -1,15 +1,8 @@
-// The dioxus prelude contains a ton of common items used in dioxus apps. It's a good idea to import wherever you
-// need dioxus
 use dioxus::prelude::*;
-// We might need Script explicitly if not covered or to avoid ambiguity
-// use dioxus::prelude::{Script, Link}; // This is already covered by prelude::*
-
-// We can import assets in dioxus with the `asset!` macro. This macro takes a path to an asset relative to the crate root.
-// The macro returns an `Asset` type that will display as the path to the asset in the browser or a local path in desktop bundles.
 const FAVICON: Asset = asset!("/assets/favicon.ico");
-// The asset macro also minifies some assets like CSS and JS to make bundled smaller
 const MAIN_CSS: Asset = asset!("/assets/styling/main.css");
-
+mod components;
+use components::graph::MyGraph;
 fn main() {
     // The `launch` function is the main entry point for a dioxus app. It takes a component and renders it with the platform feature
     // you have enabled
@@ -83,6 +76,7 @@ fn App() -> Element {
                     checked: true,
                     "Enable awesome feature"
                 }
+                MyGraph {}
             }
 
             // Footer
